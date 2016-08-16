@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd"
+	default-autowire="byName">
+
+	
+	<!-- 定义消息处理器 -->
+	<bean id="testConsumer" class="top.lilixin.TestConsumer"></bean>
+
+	<!-- 定义收信人 receiver -->
+	<bean id="topReceiver" class="top.lilixin.TopReceiver">
+
+		<constructor-arg index="0" value="${zookeeper.connect}" /><!-- 
+			_zookeeper集群地址,如: zkserver1.vko.cn:2181,zkserver2.vko.cn:2181,zkserver3.vko.cn:2181_ -->
+
+		<constructor-arg index="1" value="${test.group.id}" /><!-- 
+			_消费者所属组id字符串 ，如:vko_group_article_read_count_ -->
+
+		<constructor-arg index="2" value="${kafka.test.topics}" /><!-- 
+			_要消费的消息主题，如：vko_group_ -->
+
+		<constructor-arg index="3" ref="testConsumer" /> <!--_上面定义的消息处理器_ -->
+	</bean>
+</beans>
