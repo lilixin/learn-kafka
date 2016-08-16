@@ -2,12 +2,10 @@ package kafka;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import top.lilixin.TopConsumer;
 import top.lilixin.TopProducer;
 
 @ContextConfiguration({"classpath:applicationContext.xml"})
@@ -17,8 +15,6 @@ public class TestCase {
 	@Autowired
 	private TopProducer topProducer;
 	
-	@Autowired
-	private TopConsumer testConsumer;
 	
 	private String topic = "lilixin";
 
